@@ -44,9 +44,9 @@ values."
      auto-completion
      better-defaults
      emacs-lisp
-     git
      markdown
      org
+     git
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
@@ -131,8 +131,8 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         solarized-dark
                          solarized
+                         solarized-dark
                          spacemacs-dark
                          spacemacs-light)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
@@ -325,6 +325,10 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+    (add-to-list 'auto-mode-alist '("\\.wxml$" . web-mode))
+    (add-to-list 'auto-mode-alist '("\\.wxss$" . css-mode))
+    (add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
+
   )
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
 
