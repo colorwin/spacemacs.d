@@ -143,7 +143,8 @@ values."
                                :size 13
                                :weight normal
                                :width normal
-                               :powerline-scale 1.1)
+                               ;; :powerline-scale 1.1
+                               )
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
@@ -328,6 +329,20 @@ you should place your code here."
     (add-to-list 'auto-mode-alist '("\\.wxml$" . web-mode))
     (add-to-list 'auto-mode-alist '("\\.wxss$" . css-mode))
     (add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
+
+    ;; hooks
+    (defun my-js-mode-hook ()
+      (setq js2-basic-offset 2)
+      (setq js-indent-level 2)
+      (setq js2-include-node-externs t)
+      (setq js2-strict-missing-semi-warning nil))
+    (add-hook 'js2-mode-hook 'my-js-mode-hook)
+
+    ;; fix aspell chinese
+    (setq-default ispell-program-name "aspell")  
+    ;; use American English as ispell default dictionary  
+    (ispell-change-dictionary "american" t)  
+
 
     ;; copy to system clipboard
 (case system-type
