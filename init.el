@@ -58,7 +58,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(color-theme-solarized)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -132,9 +132,10 @@ values."
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
                          solarized
-                         solarized-dark
-                         spacemacs-dark
-                         spacemacs-light)
+                         ;; solarized-dark
+                         ;; spacemacs-dark
+                         ;; spacemacs-light
+                         )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -213,7 +214,7 @@ values."
    dotspacemacs-helm-use-fuzzy 'always
    ;; If non nil the paste micro-state is enabled. When enabled pressing `p`
    ;; several times cycle between the kill ring content. (default nil)
-   dotspacemacs-enable-paste-transient-state t 
+   dotspacemacs-enable-paste-transient-state t
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
    ;; the commands bound to the current keystroke sequence. (default 0.4)
    dotspacemacs-which-key-delay 0.4
@@ -330,6 +331,12 @@ you should place your code here."
     (add-to-list 'auto-mode-alist '("\\.wxss$" . css-mode))
     (add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
 
+
+    ;; (set-terminal-parameter nil 'background-mode 'dark)
+    ;; (set-frame-parameter nil 'background-mode 'dark)
+    (spacemacs/load-theme 'solarized)
+
+
     ;; hooks
     (defun my-js-mode-hook ()
       (setq js2-basic-offset 2)
@@ -339,9 +346,9 @@ you should place your code here."
     (add-hook 'js2-mode-hook 'my-js-mode-hook)
 
     ;; fix aspell chinese
-    (setq-default ispell-program-name "aspell")  
-    ;; use American English as ispell default dictionary  
-    (ispell-change-dictionary "american" t)  
+    (setq-default ispell-program-name "aspell")
+    ;; use American English as ispell default dictionary
+    (ispell-change-dictionary "american" t)
 
 
     ;; copy to system clipboard
