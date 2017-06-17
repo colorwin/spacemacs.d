@@ -58,7 +58,9 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(color-theme-solarized)
+   dotspacemacs-additional-packages '(
+                                      ;; color-theme-solarized
+                                      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -131,9 +133,9 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         solarized
+                         ;; solarized
                          ;; solarized-dark
-                         ;; spacemacs-dark
+                         spacemacs-dark
                          ;; spacemacs-light
                          )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
@@ -144,7 +146,7 @@ values."
                                :size 13
                                :weight normal
                                :width normal
-                               ;; :powerline-scale 1.1
+                               :powerline-scale 1.1
                                )
    ;; The leader key
    dotspacemacs-leader-key "SPC"
@@ -334,7 +336,7 @@ you should place your code here."
 
     ;; (set-terminal-parameter nil 'background-mode 'dark)
     ;; (set-frame-parameter nil 'background-mode 'dark)
-    (spacemacs/load-theme 'solarized)
+    ;; (spacemacs/load-theme 'solarized)
 
 
     ;; hooks
