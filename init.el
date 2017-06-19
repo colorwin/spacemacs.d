@@ -50,7 +50,7 @@ values."
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
-     spell-checking
+     ;; spell-checking
      syntax-checking
      version-control
      )
@@ -133,9 +133,9 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         ;; solarized
-                         ;; solarized-dark
-                         spacemacs-dark
+                         solarized-dark
+                         solarized
+                         ;; spacemacs-dark
                          ;; spacemacs-light
                          )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
