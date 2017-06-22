@@ -47,6 +47,7 @@ values."
      markdown
      org
      git
+     themes-megapack
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
@@ -133,8 +134,8 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         solarized-dark
                          solarized
+                         solarized-dark
                          ;; spacemacs-dark
                          ;; spacemacs-light
                          )
@@ -329,6 +330,7 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
     (add-to-list 'auto-mode-alist '("\\.wxml$" . web-mode))
     (add-to-list 'auto-mode-alist '("\\.wxss$" . css-mode))
     (add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
@@ -375,8 +377,14 @@ you should place your code here."
                       xsel-output )))
                 (setq interprogram-cut-function 'xsel-cut-function)
                 (setq interprogram-paste-function 'xsel-paste-function))))
+
+(defun on-after-init ()
+  (unless (display-graphic-p (selected-frame))
+    (set-face-background 'default "unspecified-bg" (selected-frame))))
+
+(add-hook 'window-setup-hook 'on-after-init)
   )
-(setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
+
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
