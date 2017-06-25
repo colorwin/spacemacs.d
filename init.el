@@ -491,6 +491,9 @@ values."
     (set-face-background 'default "unspecified-bg" (selected-frame))))
 
 (add-hook 'window-setup-hook 'on-after-init)
+(toggle-menu-bar-mode-from-frame -1)
+(linum-relative-mode -1)
+(linum-mode 1)
   )
 
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
