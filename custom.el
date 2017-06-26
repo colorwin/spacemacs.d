@@ -14,7 +14,7 @@
  '(ctags-update-delay-seconds 1024)
  '(erc-nick "zilongshanren")
  '(erc-port 6666)
- '(evil-want-C-i-jump t)
+ ;; '(evil-want-C-i-jump t)
  '(evil-want-Y-yank-to-eol t)
  '(exec-path-from-shell-arguments (quote ("-l")))
  '(expand-region-contract-fast-key "V")
@@ -69,7 +69,7 @@
  '(command-log-key ((t (:foreground "dark cyan"))))
  '(iedit-occurrence ((t (:inherit cursor))))
  '(mc/cursor-bar-face ((t (:background "chartreuse3"))))
- '(mode-line ((t (:foreground "black" :box (:line-width -1 :style released-button)))))
+ ;; '(mode-line ((t (:foreground "black" :box (:line-width -1 :style released-button)))))
 
  ;; '(mode-line ((t (:background "black" :foreground "white" :box (:line-width -1 :style released-button)))))
  ;; '(mode-line-inactive ((t (:weight light))))

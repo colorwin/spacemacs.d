@@ -494,6 +494,7 @@ values."
 (toggle-menu-bar-mode-from-frame -1)
 (linum-relative-mode -1)
 (linum-mode 1)
+(define-key evil-normal-state-map (kbd "M-o") 'evil-jump-forward)
   )
 
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
