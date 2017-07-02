@@ -487,11 +487,6 @@ values."
                 (setq interprogram-cut-function 'xsel-cut-function)
                 (setq interprogram-paste-function 'xsel-paste-function))))
 
-(defun on-after-init ()
-  (unless (display-graphic-p (selected-frame))
-    (set-face-background 'default "unspecified-bg" (selected-frame))))
-
-(add-hook 'window-setup-hook 'on-after-init)
 (toggle-menu-bar-mode-from-frame -1)
 ;; (linum-relative-mode -1)
 ;; (linum-mode -1)
@@ -499,6 +494,11 @@ values."
 (define-key evil-normal-state-map (kbd "M-o") 'evil-jump-forward)
 
 ;; transparent
+(defun on-after-init ()
+  (unless (display-graphic-p (selected-frame))
+    (set-face-background 'default "unspecified-bg" (selected-frame))))
+
+(add-hook 'window-setup-hook 'on-after-init)
 (set-frame-parameter (selected-frame) 'alpha '(85 85))
 (add-to-list 'default-frame-alist '(alpha 85 85))
   )
