@@ -71,8 +71,8 @@
  '(mc/cursor-bar-face ((t (:background "chartreuse3"))))
  ;; '(mode-line ((t (:foreground "black" :box (:line-width -1 :style released-button)))))
 
- ;; '(mode-line ((t (:background "black" :foreground "white" :box (:line-width -1 :style released-button)))))
- ;; '(mode-line-inactive ((t (:weight light))))
+ '(mode-line ((t (:background "black" :foreground "white" :box (:line-width -1 :style released-button)))))
+ '(mode-line-inactive ((t (:weight light))))
  )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.

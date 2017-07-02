@@ -66,7 +66,7 @@ values."
      deft
      markdown
      (org :variables org-want-todo-bindings t)
-     gpu
+     ;; gpu
      yaml
      react
      ;; (python :variables
@@ -75,7 +75,7 @@ values."
      ;; ruby-on-rails
      ;; lua
      html
-     javascript
+     (javascript :variables javascript-disable-tern-port-files nil)
      (typescript :variables
                 typescript-fmt-on-save nil
                 typescript-fmt-tool 'typescript-formatter)
@@ -177,6 +177,7 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
+						 monokai
                          solarized
                          solarized-light
                          solarized-dark)
@@ -492,9 +493,14 @@ values."
 
 (add-hook 'window-setup-hook 'on-after-init)
 (toggle-menu-bar-mode-from-frame -1)
-(linum-relative-mode -1)
-(linum-mode 1)
+;; (linum-relative-mode -1)
+;; (linum-mode -1)
+;; (global-linum-mode -1)
 (define-key evil-normal-state-map (kbd "M-o") 'evil-jump-forward)
+
+;; transparent
+(set-frame-parameter (selected-frame) 'alpha '(85 85))
+(add-to-list 'default-frame-alist '(alpha 85 85))
   )
 
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
