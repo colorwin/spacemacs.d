@@ -62,7 +62,7 @@ values."
      (gtags :disabled-for clojure emacs-lisp javascript latex python shell-scripts)
      (shell :variables shell-default-shell 'eshell)
      ;; docker
-     latex
+     ;; latex
      deft
      markdown
      (org :variables org-want-todo-bindings t)
@@ -76,9 +76,9 @@ values."
      ;; lua
      html
      (javascript :variables javascript-disable-tern-port-files nil)
-     (typescript :variables
-                typescript-fmt-on-save nil
-                typescript-fmt-tool 'typescript-formatter)
+     ;; (typescript :variables
+     ;;            typescript-fmt-on-save nil
+     ;;            typescript-fmt-tool 'typescript-formatter)
      emacs-lisp
      (clojure :variables clojure-enable-fancify-symbols t)
      racket
@@ -86,7 +86,7 @@ values."
      ;;        c-c++-default-mode-for-headers 'c++-mode)
      zilongshanren
      (chinese :packages youdao-dictionary fcitx
-              :variables chinese-enable-fcitx nil
+              :variables chinese-enable-fcitx t
               chinese-enable-youdao-dict t)
      )
    ;; List of additional packages that will be installed without being
@@ -212,7 +212,7 @@ values."
    ;; and TAB or <C-m> and RET.
    ;; In the terminal, these pairs are generally indistinguishable, so this only
    ;; works in the GUI. (default nil)
-   dotspacemacs-distinguish-gui-tab nil
+   dotspacemacs-distinguish-gui-tab t
    ;; If non nil `Y' is remapped to `y$' in Evil states. (default nil)
    dotspacemacs-remap-Y-to-y$ t
    ;; If non-nil, the shift mappings `<' and `>' retain visual state if used
@@ -487,7 +487,7 @@ values."
                 (setq interprogram-cut-function 'xsel-cut-function)
                 (setq interprogram-paste-function 'xsel-paste-function))))
 
-(toggle-menu-bar-mode-from-frame -1)
+;; (toggle-menu-bar-mode-from-frame -1)
 ;; (linum-relative-mode -1)
 ;; (linum-mode -1)
 ;; (global-linum-mode -1)
@@ -499,8 +499,9 @@ values."
     (set-face-background 'default "unspecified-bg" (selected-frame))))
 
 (add-hook 'window-setup-hook 'on-after-init)
-(set-frame-parameter (selected-frame) 'alpha '(85 85))
-(add-to-list 'default-frame-alist '(alpha 85 85))
+;; (set-frame-parameter (selected-frame) 'alpha '(85 85))
+;; (add-to-list 'default-frame-alist '(alpha 85 85))
+(custom-set-faces (if (not window-system) '(default ((t (:background "nil"))))))
   )
 
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))

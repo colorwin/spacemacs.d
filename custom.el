@@ -21,7 +21,7 @@
  '(expand-region-exclude-text-mode-expansions (quote (html-mode nxml-mode web-mode)))
  '(expand-region-reset-fast-key "r")
  '(global-command-log-mode nil)
- '(global-hl-line-mode nil)
+ ;; '(global-hl-line-mode nil)
  '(helm-buffer-max-length 56)
  '(helm-move-to-line-cycle-in-source t)
  '(indent-tabs-mode t)
@@ -71,8 +71,8 @@
  '(mc/cursor-bar-face ((t (:background "chartreuse3"))))
  ;; '(mode-line ((t (:foreground "black" :box (:line-width -1 :style released-button)))))
 
- '(mode-line ((t (:background "black" :foreground "white" :box (:line-width -1 :style released-button)))))
- '(mode-line-inactive ((t (:weight light))))
+ ;; '(mode-line ((t (:background "black" :foreground "white" :box (:line-width -1 :style released-button)))))
+ ;; '(mode-line-inactive ((t (:weight light))))
  )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
