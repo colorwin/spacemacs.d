@@ -464,44 +464,54 @@ values."
     (setq js2-strict-missing-semi-warning nil))
   (add-hook 'js2-mode-hook 'my-js-mode-hook)
 
-    ;; copy to system clipboard
-(case system-type
-  ('darwin (unless window-system
-             (setq interprogram-cut-function
-                   (lambda (text &optional push)
-                     (let* ((process-connection-type nil)
-                            (pbproxy (start-process "pbcopy" "pbcopy" "/usr/bin/pbcopy")))
-                       (process-send-string pbproxy text)
-                       (process-send-eof pbproxy))))))
-  ('gnu/linux (progn
-                (setq x-select-enable-clipboard t)
-                (defun xsel-cut-function (text &optional push)
-                  (with-temp-buffer
-                    (insert text)
-                    (call-process-region (point-min) (point-max) "xsel" nil 0 nil "--clipboard" "--input")))
-                (defun xsel-paste-function()
+  ;; copy to system clipboard
+  (case system-type
+	('darwin (unless window-system
+			   (setq interprogram-cut-function
+					 (lambda (text &optional push)
+					   (let* ((process-connection-type nil)
+							  (pbproxy (start-process "pbcopy" "pbcopy" "/usr/bin/pbcopy")))
+						 (process-send-string pbproxy text)
+						 (process-send-eof pbproxy))))))
+	('gnu/linux (progn
+				  (setq x-select-enable-clipboard t)
+				  (defun xsel-cut-function (text &optional push)
+					(with-temp-buffer
+					  (insert text)
+					  (call-process-region (point-min) (point-max) "xsel" nil 0 nil "--clipboard" "--input")))
+				  (defun xsel-paste-function()
 
-                  (let ((xsel-output (shell-command-to-string "xsel --clipboard --output")))
-                    (unless (string= (car kill-ring) xsel-output)
-                      xsel-output )))
-                (setq interprogram-cut-function 'xsel-cut-function)
-                (setq interprogram-paste-function 'xsel-paste-function))))
+					(let ((xsel-output (shell-command-to-string "xsel --clipboard --output")))
+					  (unless (string= (car kill-ring) xsel-output)
+						xsel-output )))
+				  (setq interprogram-cut-function 'xsel-cut-function)
+				  (setq interprogram-paste-function 'xsel-paste-function))))
 
-;; (toggle-menu-bar-mode-from-frame -1)
-;; (linum-relative-mode -1)
-;; (linum-mode -1)
-;; (global-linum-mode -1)
-(define-key evil-normal-state-map (kbd "M-o") 'evil-jump-forward)
+  ;; (toggle-menu-bar-mode-from-frame -1)
+  ;; (linum-relative-mode -1)
+  ;; (linum-mode -1)
+  ;; (global-linum-mode -1)
+  (define-key evil-normal-state-map (kbd "M-o") 'evil-jump-forward)
 
-;; transparent
-(defun on-after-init ()
-  (unless (display-graphic-p (selected-frame))
-    (set-face-background 'default "unspecified-bg" (selected-frame))))
+  ;; transparent
+  (defun on-after-init ()
+	(unless (display-graphic-p (selected-frame))
+	  (set-face-background 'default "unspecified-bg" (selected-frame))))
 
-(add-hook 'window-setup-hook 'on-after-init)
-;; (set-frame-parameter (selected-frame) 'alpha '(85 85))
-;; (add-to-list 'default-frame-alist '(alpha 85 85))
-(custom-set-faces (if (not window-system) '(default ((t (:background "nil"))))))
+  (add-hook 'window-setup-hook 'on-after-init)
+  ;; (set-frame-parameter (selected-frame) 'alpha '(85 85))
+  ;; (add-to-list 'default-frame-alist '(alpha 85 85))
+  (custom-set-faces (if (not window-system) '(default ((t (:background "nil"))))))
+
+;; hack .重复输入, 包含company
+  (if (fboundp 'evil-declare-change-repeat)
+	  (mapc #'evil-declare-change-repeat
+			'(company-complete-common
+			  company-select-next
+			  company-select-previous
+			  company-complete-selection
+			  company-complete-number
+			  )))
   )
 
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
