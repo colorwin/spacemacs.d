@@ -45,6 +45,7 @@
 ;; (global-set-key (kbd "s-s") 'save-buffer)
 (global-set-key (kbd "C-`") 'toggle-input-method)
 (global-set-key (kbd "s-d") 'zilongshanren/my-mc-mark-next-like-this)
+(global-set-key (kbd "M-a") 'zilongshanren/my-mc-mark-next-like-this)
 (bind-key* "s-r" 'mc/reverse-regions)
 (global-set-key (kbd "<f5>") 'zilongshanren/run-current-file)
 

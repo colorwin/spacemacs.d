@@ -75,10 +75,10 @@ values."
      ;; ruby-on-rails
      ;; lua
      html
-     (javascript :variables javascript-disable-tern-port-files nil)
-     ;; (typescript :variables
-     ;;            typescript-fmt-on-save nil
-     ;;            typescript-fmt-tool 'typescript-formatter)
+     javascript
+     (typescript :variables
+                typescript-fmt-on-save nil
+                typescript-fmt-tool 'typescript-formatter)
      emacs-lisp
      (clojure :variables clojure-enable-fancify-symbols t)
      racket
@@ -86,14 +86,14 @@ values."
      ;;        c-c++-default-mode-for-headers 'c++-mode)
      zilongshanren
      (chinese :packages youdao-dictionary fcitx
-              :variables chinese-enable-fcitx t
+              :variables chinese-enable-fcitx nil
               chinese-enable-youdao-dict t)
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(sicp)
+   dotspacemacs-additional-packages '(sicp dumb-jump)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    dotspacemacs-excluded-packages
@@ -172,7 +172,6 @@ values."
    dotspacemacs-startup-buffer-responsive t
    ;; Default major mode of the scratch buffer (default `text-mode')
    dotspacemacs-scratch-mode 'text-mode
-
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
@@ -344,9 +343,9 @@ values."
 
 (defun dotspacemacs/user-init ()
   (setq configuration-layer--elpa-archives
-        '(("melpa-cn" . "https://elpa.zilongshanren.com/melpa/")
-          ("org-cn"   . "https://elpa.zilongshanren.com/org/")
-          ("gnu-cn"   . "https://elpa.zilongshanren.com/gnu/")))
+        '(("melpa-cn" . "https://elpa.emacs-china.org/melpa/")
+          ("org-cn"   . "https://elpa.emacs-china.org/org/")
+          ("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")))
 
   ;; https://github.com/syl20bnr/spacemacs/issues/2705
   ;; (setq tramp-mode nil)
@@ -512,6 +511,12 @@ values."
 			  company-complete-selection
 			  company-complete-number
 			  )))
+
+  (package-require 'tern)
+  (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
+  (package-require 'company-tern)
+  (eval-after-load 'company
+    '(add-to-list 'company-backends 'company-tern))
   )
 
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
