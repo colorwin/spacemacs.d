@@ -181,3 +181,17 @@
   (global-set-key (kbd "s-n") 'make-frame)
   (global-set-key (kbd "s-z") 'undo-tree-undo)
   (global-set-key (kbd "s-Z") 'undo-tree-redo))
+
+
+
+;; colorwin
+(spacemacs/set-leader-keys "pt" 'neotree-find-project-root)
+
+(spacemacs/set-leader-keys "bR" 'revert-buffer)
+
+(spacemacs/set-leader-keys "wx" 'spacemacs/delete-window)
+(spacemacs/set-leader-keys "wd" 'spacemacs/ace-delete-window)
+(spacemacs/set-leader-keys "wD" 'spacemacs/delete-windows)
+
+
+(define-key evil-normal-state-map (kbd "M-o") 'evil-jump-forward)

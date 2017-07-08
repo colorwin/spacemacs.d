@@ -490,7 +490,6 @@ values."
   ;; (linum-relative-mode -1)
   ;; (linum-mode -1)
   ;; (global-linum-mode -1)
-  (define-key evil-normal-state-map (kbd "M-o") 'evil-jump-forward)
 
   ;; transparent
   (defun on-after-init ()
@@ -502,7 +501,7 @@ values."
   ;; (add-to-list 'default-frame-alist '(alpha 85 85))
   (custom-set-faces (if (not window-system) '(default ((t (:background "nil"))))))
 
-;; hack .重复输入, 包含company
+  ;; hack .重复输入, 包含company
   (if (fboundp 'evil-declare-change-repeat)
 	  (mapc #'evil-declare-change-repeat
 			'(company-complete-common
@@ -517,7 +516,6 @@ values."
   (package-require 'company-tern)
   (eval-after-load 'company
     '(add-to-list 'company-backends 'company-tern))
-  )
 
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
 (load custom-file 'no-error 'no-message)
