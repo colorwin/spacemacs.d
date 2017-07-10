@@ -93,7 +93,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(sicp dumb-jump)
+   dotspacemacs-additional-packages '(sicp dumb-jump auto-complete tern-auto-complete ac-js2)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    dotspacemacs-excluded-packages
@@ -608,41 +608,40 @@ values."
           sp-remove-active-pair-overlay
           orgtbl-hijacker-command-109))
 
-
   ;; use local eslint from node_modules before global
   ;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
-  ;; (defun my/use-eslint-from-node-modules ()
-  ;;   (let* ((root (locate-dominating-file
-  ;;                 (or (buffer-file-name) default-directory)
-  ;;                 "node_modules"))
-  ;;          (eslint (and root
-  ;;                       (expand-file-name "node_modules/eslint/bin/eslint.js"
-  ;;                                         root))))
-  ;;     (when (and eslint (file-executable-p eslint))
-  ;;       (setq-local flycheck-javascript-eslint-executable eslint))))
-  ;; (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
+  (defun my/use-eslint-from-node-modules ()
+    (let* ((root (locate-dominating-file
+                  (or (buffer-file-name) default-directory)
+                  "node_modules"))
+           (eslint (and root
+                        (expand-file-name "node_modules/eslint/bin/eslint.js"
+                                          root))))
+      (when (and eslint (file-executable-p eslint))
+        (setq-local flycheck-javascript-eslint-executable eslint))))
+  (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
 
-  ;; (require 'auto-complete)
-                                        ; do default config for auto-complete
-  ;; (require 'auto-complete-config)
-  ;; (ac-config-default)
+  (require 'auto-complete)
+  ;; do default config for auto-complete
+  (require 'auto-complete-config)
+  (ac-config-default)
   ;; start yasnippet with emacs
-  ;; (require 'yasnippet)
-  ;; (yas-global-mode 1)
+  (require 'yasnippet)
+  (yas-global-mode 1)
 
-  ;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-  ;; (add-to-list 'interpreter-mode-alist '("node" . js2-mode))
-  ;; (add-hook 'js-mode-hook 'js2-minor-mode)
-  ;; (add-hook 'js2-mode-hook 'ac-js2-mode)
-  ;; (add-hook 'js-mode-hook (lambda () (tern-mode t)))
-  ;; (if (eq system-type 'windows-nt)
-  ;;     (setq tern-command '("node" "<TERN LOCATION>\\bin\\tern")))
-  ;; (eval-after-load 'tern
-  ;;   '(progn
-  ;;      (require 'tern-auto-complete)
-  ;;      (tern-ac-setup)))
-  ;; (add-hook 'js2-mode-hook 'tern-mode)
-  ;; (add-hook 'js-mode-hook 'tern-mode)
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+  (add-to-list 'interpreter-mode-alist '("node" . js2-mode))
+  (add-hook 'js-mode-hook 'js2-minor-mode)
+  (add-hook 'js2-mode-hook 'ac-js2-mode)
+  (add-hook 'js-mode-hook (lambda () (tern-mode t)))
+  (if (eq system-type 'windows-nt)
+      (setq tern-command '("node" "<TERN LOCATION>\\bin\\tern")))
+  (eval-after-load 'tern
+    '(progn
+       (require 'tern-auto-complete)
+       (tern-ac-setup)))
+  (add-hook 'js2-mode-hook 'tern-mode)
+  (add-hook 'js-mode-hook 'tern-mode)
 
   ;; (global-set-key (kbd "C-SPC") nil)
   )
