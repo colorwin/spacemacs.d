@@ -57,7 +57,7 @@ values."
                       auto-completion-enable-snippets-in-popup t
                       :disabled-for org markdown)
      ;; (osx :variables osx-dictionary-dictionary-choice "Simplified Chinese - English"
-          ;; osx-command-as 'super)
+     ;; osx-command-as 'super)
      restclient
      (gtags :disabled-for clojure emacs-lisp javascript latex python shell-scripts)
      (shell :variables shell-default-shell 'eshell)
@@ -77,8 +77,8 @@ values."
      html
      javascript
      (typescript :variables
-                typescript-fmt-on-save nil
-                typescript-fmt-tool 'typescript-formatter)
+                 typescript-fmt-on-save nil
+                 typescript-fmt-tool 'typescript-formatter)
      emacs-lisp
      (clojure :variables clojure-enable-fancify-symbols t)
      racket
@@ -176,7 +176,7 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-						 monokai
+                         monokai
                          solarized
                          solarized-light
                          solarized-dark)
@@ -362,6 +362,7 @@ values."
   )
 
 (defun dotspacemacs/user-config ()
+
   ;;解决org表格里面中英文对齐的问题
   (when (configuration-layer/layer-usedp 'chinese)
     (when (and (spacemacs/system-is-mac) window-system)
@@ -453,7 +454,7 @@ values."
 
   (add-to-list 'auto-mode-alist '("\\.wxml$" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.wxss$" . css-mode))
-  (add-to-list 'auto-mode-alist '("\\.vue$" . react-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.vue$" . react-mode))
 
   ;; hooks
   (defun my-js-mode-hook ()
@@ -465,26 +466,26 @@ values."
 
   ;; copy to system clipboard
   (case system-type
-	('darwin (unless window-system
-			   (setq interprogram-cut-function
-					 (lambda (text &optional push)
-					   (let* ((process-connection-type nil)
-							  (pbproxy (start-process "pbcopy" "pbcopy" "/usr/bin/pbcopy")))
-						 (process-send-string pbproxy text)
-						 (process-send-eof pbproxy))))))
-	('gnu/linux (progn
-				  (setq x-select-enable-clipboard t)
-				  (defun xsel-cut-function (text &optional push)
-					(with-temp-buffer
-					  (insert text)
-					  (call-process-region (point-min) (point-max) "xsel" nil 0 nil "--clipboard" "--input")))
-				  (defun xsel-paste-function()
+    ('darwin (unless window-system
+               (setq interprogram-cut-function
+                     (lambda (text &optional push)
+                       (let* ((process-connection-type nil)
+                              (pbproxy (start-process "pbcopy" "pbcopy" "/usr/bin/pbcopy")))
+                         (process-send-string pbproxy text)
+                         (process-send-eof pbproxy))))))
+    ('gnu/linux (progn
+                  (setq x-select-enable-clipboard t)
+                  (defun xsel-cut-function (text &optional push)
+                    (with-temp-buffer
+                      (insert text)
+                      (call-process-region (point-min) (point-max) "xsel" nil 0 nil "--clipboard" "--input")))
+                  (defun xsel-paste-function()
 
-					(let ((xsel-output (shell-command-to-string "xsel --clipboard --output")))
-					  (unless (string= (car kill-ring) xsel-output)
-						xsel-output )))
-				  (setq interprogram-cut-function 'xsel-cut-function)
-				  (setq interprogram-paste-function 'xsel-paste-function))))
+                    (let ((xsel-output (shell-command-to-string "xsel --clipboard --output")))
+                      (unless (string= (car kill-ring) xsel-output)
+                        xsel-output )))
+                  (setq interprogram-cut-function 'xsel-cut-function)
+                  (setq interprogram-paste-function 'xsel-paste-function))))
 
   ;; (toggle-menu-bar-mode-from-frame -1)
   ;; (linum-relative-mode -1)
@@ -493,8 +494,8 @@ values."
 
   ;; transparent
   (defun on-after-init ()
-	(unless (display-graphic-p (selected-frame))
-	  (set-face-background 'default "unspecified-bg" (selected-frame))))
+    (unless (display-graphic-p (selected-frame))
+      (set-face-background 'default "unspecified-bg" (selected-frame))))
 
   (add-hook 'window-setup-hook 'on-after-init)
   ;; (set-frame-parameter (selected-frame) 'alpha '(85 85))
@@ -503,20 +504,147 @@ values."
 
   ;; hack .重复输入, 包含company
   (if (fboundp 'evil-declare-change-repeat)
-	  (mapc #'evil-declare-change-repeat
-			'(company-complete-common
-			  company-select-next
-			  company-select-previous
-			  company-complete-selection
-			  company-complete-number
-			  )))
+      (mapc #'evil-declare-change-repeat
+            '(company-complete-common
+              company-select-next
+              company-select-previous
+              company-complete-selection
+              company-complete-number
+              )))
 
-  (package-require 'tern)
+  ;; (package-require 'tern)
+  (require 'tern)
   (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
-  (package-require 'company-tern)
+  ;; (package-require 'company-tern)
+  (require 'company-tern)
   (eval-after-load 'company
     '(add-to-list 'company-backends 'company-tern))
 
+  ;; use web-mode for .jsx files
+  (add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
+
+  ;; http://www.flycheck.org/manual/latest/index.html
+  (require 'flycheck)
+
+  ;; turn on flychecking globally
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+
+  ;; disable jshint since we prefer eslint checking
+  (setq-default flycheck-disabled-checkers
+                (append flycheck-disabled-checkers
+                        '(javascript-jshint)))
+
+  (setq flycheck-checkers '(javascript-eslint))
+  (flycheck-add-mode 'javascript-eslint 'web-mode)
+  (flycheck-add-mode 'javascript-eslint 'js2-mode)
+  ;; use eslint with web-mode for jsx files
+  (flycheck-add-mode 'javascript-eslint 'web-mode)
+
+  ;; customize flycheck temp file prefix
+  (setq-default flycheck-temp-prefix ".")
+  (setq flycheck-eslintrc "~/.eslintrc")
+
+  ;; disable json-jsonlist checking for json files
+  (setq-default flycheck-disabled-checkers
+                (append flycheck-disabled-checkers
+                        '(json-jsonlist)))
+
+  ;; https://github.com/purcell/exec-path-from-shell
+  ;; only need exec-path-from-shell on OSX
+  ;; this hopefully sets up path and other vars better
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize))
+
+  ;; adjust indents for web-mode to 2 spaces
+  (defun my-web-mode-hook ()
+    "Hooks for Web mode. Adjust indents"
+;;; http://web-mode.org/
+    (setq web-mode-markup-indent-offset 2)
+    (setq web-mode-css-indent-offset 2)
+    (setq web-mode-code-indent-offset 2))
+  (add-hook 'web-mode-hook  'my-web-mode-hook)
+
+  ;; for better jsx syntax-highlighting in web-mode
+  ;; - courtesy of Patrick @halbtuerke
+  (defadvice web-mode-highlight-part (around tweak-jsx activate)
+    (if (equal web-mode-content-type "jsx")
+        (let ((web-mode-enable-part-face nil))
+          ad-do-it)
+      ad-do-it))
+
+  (setq mc/cmds-to-run-for-all
+        '(
+          electric-newline-and-maybe-indent
+          hungry-delete-backward
+          spacemacs/backward-kill-word-or-region
+          spacemacs/smart-move-beginning-of-line
+          evil-substitute
+          lispy-move-beginning-of-line
+          lispy-move-end-of-line
+          lispy-space
+          lispy-delete-backward
+          evil-exit-visual-state
+          evil-backward-char
+          evil-delete-char
+          evil-escape-emacs-state
+          evil-escape-insert-state
+          mwim-beginning-of-code-or-line
+          mwim-end-of-line-or-code
+          evil-exit-emacs-state
+          evil-previous-visual-line
+          evil-next-visual-line
+          evil-forward-char
+          evil-insert
+          evil-next-line
+          evil-normal-state
+          evil-previous-line
+          evil-append
+          evil-append-line
+          forward-sentence
+          kill-sentence
+          org-self-insert-command
+          sp-backward-delete-char
+          sp-delete-char
+          sp-remove-active-pair-overlay
+          orgtbl-hijacker-command-109))
+
+
+  ;; use local eslint from node_modules before global
+  ;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
+  ;; (defun my/use-eslint-from-node-modules ()
+  ;;   (let* ((root (locate-dominating-file
+  ;;                 (or (buffer-file-name) default-directory)
+  ;;                 "node_modules"))
+  ;;          (eslint (and root
+  ;;                       (expand-file-name "node_modules/eslint/bin/eslint.js"
+  ;;                                         root))))
+  ;;     (when (and eslint (file-executable-p eslint))
+  ;;       (setq-local flycheck-javascript-eslint-executable eslint))))
+  ;; (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
+
+  ;; (require 'auto-complete)
+                                        ; do default config for auto-complete
+  ;; (require 'auto-complete-config)
+  ;; (ac-config-default)
+  ;; start yasnippet with emacs
+  ;; (require 'yasnippet)
+  ;; (yas-global-mode 1)
+
+  ;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+  ;; (add-to-list 'interpreter-mode-alist '("node" . js2-mode))
+  ;; (add-hook 'js-mode-hook 'js2-minor-mode)
+  ;; (add-hook 'js2-mode-hook 'ac-js2-mode)
+  ;; (add-hook 'js-mode-hook (lambda () (tern-mode t)))
+  ;; (if (eq system-type 'windows-nt)
+  ;;     (setq tern-command '("node" "<TERN LOCATION>\\bin\\tern")))
+  ;; (eval-after-load 'tern
+  ;;   '(progn
+  ;;      (require 'tern-auto-complete)
+  ;;      (tern-ac-setup)))
+  ;; (add-hook 'js2-mode-hook 'tern-mode)
+  ;; (add-hook 'js-mode-hook 'tern-mode)
+
+  ;; (global-set-key (kbd "C-SPC") nil)
   )
 
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
@@ -526,4 +654,4 @@ values."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-)
+  )

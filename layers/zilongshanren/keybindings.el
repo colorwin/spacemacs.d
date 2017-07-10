@@ -191,7 +191,8 @@
 
 (spacemacs/set-leader-keys "wx" 'spacemacs/delete-window)
 (spacemacs/set-leader-keys "wd" 'spacemacs/ace-delete-window)
-(spacemacs/set-leader-keys "wD" 'spacemacs/delete-windows)
+(spacemacs/set-leader-keys "wD" 'delete-other-windows)
 
 
 (define-key evil-normal-state-map (kbd "M-o") 'evil-jump-forward)
+
