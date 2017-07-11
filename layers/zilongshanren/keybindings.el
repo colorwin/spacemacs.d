@@ -205,3 +205,5 @@
 (spacemacs/set-leader-keys "ps" 'find-file-in-project)
 
 (global-set-key (kbd "s-f") 'find-file-in-project)
+
+(spacemacs/set-leader-keys "be" 'erase-buffer)

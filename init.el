@@ -363,6 +363,8 @@ values."
 
 (defun dotspacemacs/user-config ()
 
+  (spacemacs/toggle-highlight-current-line-globally-off)
+
   ;;解决org表格里面中英文对齐的问题
   (when (configuration-layer/layer-usedp 'chinese)
     (when (and (spacemacs/system-is-mac) window-system)
