@@ -207,3 +207,13 @@
 (global-set-key (kbd "s-f") 'find-file-in-project)
 
 (spacemacs/set-leader-keys "be" 'erase-buffer)
+
+(spacemacs/set-leader-keys "be" 'erase-buffer)
+
+
+(defun colorwin/swiper ()
+  (interactive)
+  (swiper (thing-at-point 'word))
+  )
+
+(spacemacs/set-leader-keys "sw" 'colorwin/swiper)
