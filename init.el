@@ -33,7 +33,7 @@ values."
    '(
      ivy
      themes-megapack
-     better-defaults
+     (     better-defaults :variables better-defaults-move-to-end-of-code-first t)
      ranger
      colors
      prodigy
