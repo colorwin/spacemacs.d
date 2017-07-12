@@ -246,6 +246,7 @@ PROMPT sets the `read-string prompt."
 (spacemacs/set-leader-keys "Eg" 'engine/search-google)
 (spacemacs/set-leader-keys "EG" 'engine/search-github)
 (spacemacs/set-leader-keys "Ew" 'engine/search-wikipedia)
+(spacemacs/set-leader-keys "Es" 'engine/search-stack-overflow)
 
 (evil-define-key 'visual evil-surround-mode-map "s" 'evil-substitute)
 (evil-define-key 'visual evil-surround-mode-map "S" 'evil-surround-region)
