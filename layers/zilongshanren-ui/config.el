@@ -22,9 +22,11 @@
 ;; buffer name (if the buffer isn't visiting a file)
 (setq frame-title-format
       '(
-      ;; '("" " Guanghui - "
+        ;; '("" " Guanghui - "
         (:eval (if (buffer-file-name)
-                   (abbreviate-file-name (buffer-file-name)) "%b"))))
+                   (abbreviate-file-name (buffer-file-name)) "%b"))
+        "- colorwin"
+        ))
 
 (define-fringe-bitmap 'right-curly-arrow
   [#b00000000
