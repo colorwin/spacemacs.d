@@ -638,6 +638,8 @@ values."
   (add-hook 'js-mode-hook 'tern-mode)
 
   ;; (global-set-key (kbd "C-SPC") nil)
+  ;; (global-hl-line-mode -1)
+  ;; (set-face-background 'hl-line "#999999")
   )
 
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
