@@ -280,21 +280,7 @@
 
 (defun zilongshanren-programming/post-init-js2-mode ()
   (progn
-    (defun occur-dwim ()
-      "Call `occur' with a sane default."
-      (interactive)
-      (push (if (region-active-p)
-                (buffer-substring-no-properties
-                 (region-beginning)
-                 (region-end))
-              (let ((sym (thing-at-point 'symbol)))
-                (when (stringp sym)
-                  (regexp-quote sym))))
-            regexp-history)
-      (call-interactively 'occur))
-    (global-set-key (kbd "M-s o") 'occur-dwim)
-
-    (add-hook 'js2-mode-hook #'js2-refactor-mode)
+    ;; (add-hook 'js2-mode-hook #'js2-refactor-mode)
 
     (add-hook 'js2-mode-hook 'my-setup-develop-environment)
     (add-hook 'web-mode-hook 'my-setup-develop-environment)

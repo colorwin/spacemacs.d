@@ -85,6 +85,7 @@ values."
      ;; (c-c++ :variables
      ;;        c-c++-default-mode-for-headers 'c++-mode)
      zilongshanren
+     colorwin
      (chinese :packages youdao-dictionary fcitx
               :variables chinese-enable-fcitx nil
               chinese-enable-youdao-dict t)
@@ -564,43 +565,6 @@ values."
         (let ((web-mode-enable-part-face nil))
           ad-do-it)
       ad-do-it))
-
-   ;; 避免multi cursor经常询问
-  (setq mc/cmds-to-run-for-all
-        '(
-          electric-newline-and-maybe-indent
-          hungry-delete-backward
-          spacemacs/backward-kill-word-or-region
-          spacemacs/smart-move-beginning-of-line
-          evil-substitute
-          lispy-move-beginning-of-line
-          lispy-move-end-of-line
-          lispy-space
-          lispy-delete-backward
-          evil-exit-visual-state
-          evil-backward-char
-          evil-delete-char
-          evil-escape-emacs-state
-          evil-escape-insert-state
-          mwim-beginning-of-code-or-line
-          mwim-end-of-line-or-code
-          evil-exit-emacs-state
-          evil-previous-visual-line
-          evil-next-visual-line
-          evil-forward-char
-          evil-insert
-          evil-next-line
-          evil-normal-state
-          evil-previous-line
-          evil-append
-          evil-append-line
-          forward-sentence
-          kill-sentence
-          org-self-insert-command
-          sp-backward-delete-char
-          sp-delete-char
-          sp-remove-active-pair-overlay
-          orgtbl-hijacker-command-109))
 
   ;; use local eslint from node_modules before global
   ;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
