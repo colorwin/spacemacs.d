@@ -10,7 +10,7 @@
 ;;; License: GPLv3
 
 ;; for fixing powerline separator issue
-;; (setq-default ns-use-srgb-colorspace nil)
+(setq-default ns-use-srgb-colorspace nil)
 
 ;; http://emacsredux.com/blog/2014/04/05/which-function-mode/
 (which-function-mode)
@@ -25,7 +25,7 @@
         ;; '("" " Guanghui - "
         (:eval (if (buffer-file-name)
                    (abbreviate-file-name (buffer-file-name)) "%b"))
-        "- colorwin"
+        " - Colorwin"
         ))
 
 (define-fringe-bitmap 'right-curly-arrow
