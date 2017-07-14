@@ -69,4 +69,5 @@ Each entry is either:
     (spacemacs/set-leader-keys "EY" 'youdao-dictionary-play-voice-at-point)))
 
 (defun colowin/post-init-company
+    (setq company-minimum-prefix-length 2)
     )
