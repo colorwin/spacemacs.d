@@ -1,3 +1,9 @@
+(defun colorwin/mark-previous-like-this ()
+  (interactive)
+  (if (region-active-p)
+      (mc/mark-previous-like-this 1)
+    (er/expand-region 1)))
+
 (defun colorwin/swiper ()
   (interactive)
   (swiper (thing-at-point 'word))

@@ -13,8 +13,8 @@
 
 ;; multi cursor
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C->") 'zilongshanren/my-mc-mark-next-like-this)
+(global-set-key (kbd "C-<") 'colorwin/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 (spacemacs/set-leader-keys "ps" 'find-file-in-project)
 
