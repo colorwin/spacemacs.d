@@ -9,6 +9,7 @@
   (swiper (thing-at-point 'word))
   )
 (defun colorwin/youdao ()
+  (interactive)
   (youdao-dictionary-search-at-point+)
   (youdao-dictionary-play-voice-at-point)
   )
