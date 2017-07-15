@@ -5,6 +5,8 @@
 (spacemacs/set-leader-keys "bR" 'revert-buffer)
 (spacemacs/set-leader-keys "be" 'erase-buffer)
 (spacemacs/set-leader-keys "be" 'erase-buffer)
+(spacemacs/set-leader-keys "bl" 'popwin:popup-last-buffer)
+(spacemacs/set-leader-keys "sw" 'colorwin/swiper)
 
 ;; window
 (spacemacs/set-leader-keys "wx" 'spacemacs/delete-window)
@@ -14,7 +16,8 @@
 ;; multi cursor
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C->") 'zilongshanren/my-mc-mark-next-like-this)
-(global-set-key (kbd "C-<") 'colorwin/mark-previous-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+;; (global-set-key (kbd "s-D") 'colorwin/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 (spacemacs/set-leader-keys "ps" 'find-file-in-project)
 
@@ -25,6 +28,7 @@
 (spacemacs/set-leader-keys "Ew" 'engine/search-wikipedia)
 (spacemacs/set-leader-keys "Es" 'engine/search-stack-overflow)
 (spacemacs/set-leader-keys "Ey" 'youdao-dictionary-search)
+(spacemacs/set-leader-keys "EY" 'colorwin/youdao)
 
 ;; reset default evil sourround
 (evil-define-key 'visual evil-surround-mode-map "s" 'evil-substitute)
@@ -37,5 +41,4 @@
 (global-set-key (kbd "s-f") 'find-file-in-project)
 
 
-(spacemacs/set-leader-keys "sw" 'colorwin/swiper)
-(spacemacs/set-leader-keys "oy" 'colorwin/youdao)
+(global-set-key (kbd "s-/" ) 'comment-line)
