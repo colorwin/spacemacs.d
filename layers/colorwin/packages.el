@@ -30,7 +30,7 @@
 ;;; Code:
 
 (defconst colorwin-packages
-  '(youdao-dictionary
+  '(
     company)
   "The list of Lisp packages required by the colorwin layer.
 
@@ -61,12 +61,6 @@ Each entry is either:
 
 
 ;;; packages.el ends here
-
-(defun colorwin/init-youdao-dictionary ()
-  (use-package youdao-dictionary
-    :defer t
-    :init
-    (spacemacs/set-leader-keys "EY" 'youdao-dictionary-play-voice-at-point)))
 
 (defun colowin/post-init-company
     (setq company-minimum-prefix-length 2)
