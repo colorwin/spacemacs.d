@@ -458,6 +458,8 @@ values."
   (add-to-list 'auto-mode-alist '("\\.wxml$" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.wxss$" . css-mode))
   ;; (add-to-list 'auto-mode-alist '("\\.vue$" . react-mode))
+  ;; use web-mode for .jsx files
+  (add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
 
   ;; hooks
   (defun my-js-mode-hook ()
@@ -515,91 +517,89 @@ values."
               company-complete-number
               )))
 
-  ;; (package-require 'tern)
-  (require 'tern)
-  (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
-  ;; (package-require 'company-tern)
-  (require 'company-tern)
-  (eval-after-load 'company
-    '(add-to-list 'company-backends 'company-tern))
+  ;; ;; (package-require 'tern)
+  ;; (require 'tern)
+  ;; (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
+  ;; ;; (package-require 'company-tern)
+  ;; (require 'company-tern)
+  ;; (eval-after-load 'company
+  ;;   '(add-to-list 'company-backends 'company-tern))
 
-  ;; use web-mode for .jsx files
-  (add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
 
-  ;; http://www.flycheck.org/manual/latest/index.html
-  (require 'flycheck)
+  ;; ;; http://www.flycheck.org/manual/latest/index.html
+  ;; (require 'flycheck)
 
-  ;; turn on flychecking globally
-  (add-hook 'after-init-hook #'global-flycheck-mode)
+  ;; ;; turn on flychecking globally
+  ;; (add-hook 'after-init-hook #'global-flycheck-mode)
 
-  ;; disable jshint since we prefer eslint checking
-  (setq-default flycheck-disabled-checkers
-                (append flycheck-disabled-checkers
-                        '(javascript-jshint)))
+  ;; ;; disable jshint since we prefer eslint checking
+  ;; (setq-default flycheck-disabled-checkers
+  ;;               (append flycheck-disabled-checkers
+  ;;                       '(javascript-jshint)))
 
-  (setq flycheck-checkers '(javascript-eslint))
-  (flycheck-add-mode 'javascript-eslint 'web-mode)
-  (flycheck-add-mode 'javascript-eslint 'js2-mode)
-  ;; use eslint with web-mode for jsx files
-  (flycheck-add-mode 'javascript-eslint 'web-mode)
+  ;; (setq flycheck-checkers '(javascript-eslint))
+  ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
+  ;; (flycheck-add-mode 'javascript-eslint 'js2-mode)
+  ;; ;; use eslint with web-mode for jsx files
+  ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
 
-  ;; customize flycheck temp file prefix
-  (setq-default flycheck-temp-prefix ".")
-  (setq flycheck-eslintrc "~/.eslintrc")
+  ;; ;; customize flycheck temp file prefix
+  ;; (setq-default flycheck-temp-prefix ".")
+  ;; (setq flycheck-eslintrc "~/.eslintrc")
 
-  ;; disable json-jsonlist checking for json files
-  (setq-default flycheck-disabled-checkers
-                (append flycheck-disabled-checkers
-                        '(json-jsonlist)))
+  ;; ;; disable json-jsonlist checking for json files
+  ;; (setq-default flycheck-disabled-checkers
+  ;;               (append flycheck-disabled-checkers
+  ;;                       '(json-jsonlist)))
 
-  ;; https://github.com/purcell/exec-path-from-shell
-  ;; only need exec-path-from-shell on OSX
-  ;; this hopefully sets up path and other vars better
-  (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-initialize))
+  ;; ;; https://github.com/purcell/exec-path-from-shell
+  ;; ;; only need exec-path-from-shell on OSX
+  ;; ;; this hopefully sets up path and other vars better
+  ;; (when (memq window-system '(mac ns x))
+  ;;   (exec-path-from-shell-initialize))
 
-  ;; for better jsx syntax-highlighting in web-mode
-  ;; - courtesy of Patrick @halbtuerke
-  (defadvice web-mode-highlight-part (around tweak-jsx activate)
-    (if (equal web-mode-content-type "jsx")
-        (let ((web-mode-enable-part-face nil))
-          ad-do-it)
-      ad-do-it))
+  ;; ;; for better jsx syntax-highlighting in web-mode
+  ;; ;; - courtesy of Patrick @halbtuerke
+  ;; (defadvice web-mode-highlight-part (around tweak-jsx activate)
+  ;;   (if (equal web-mode-content-type "jsx")
+  ;;       (let ((web-mode-enable-part-face nil))
+  ;;         ad-do-it)
+  ;;     ad-do-it))
 
-  ;; use local eslint from node_modules before global
-  ;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
-  (defun my/use-eslint-from-node-modules ()
-    (let* ((root (locate-dominating-file
-                  (or (buffer-file-name) default-directory)
-                  "node_modules"))
-           (eslint (and root
-                        (expand-file-name "node_modules/eslint/bin/eslint.js"
-                                          root))))
-      (when (and eslint (file-executable-p eslint))
-        (setq-local flycheck-javascript-eslint-executable eslint))))
-  (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
+  ;; ;; use local eslint from node_modules before global
+  ;; ;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
+  ;; (defun my/use-eslint-from-node-modules ()
+  ;;   (let* ((root (locate-dominating-file
+  ;;                 (or (buffer-file-name) default-directory)
+  ;;                 "node_modules"))
+  ;;          (eslint (and root
+  ;;                       (expand-file-name "node_modules/eslint/bin/eslint.js"
+  ;;                                         root))))
+  ;;     (when (and eslint (file-executable-p eslint))
+  ;;       (setq-local flycheck-javascript-eslint-executable eslint))))
+  ;; (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
 
-  (require 'auto-complete)
-  ;; do default config for auto-complete
-  (require 'auto-complete-config)
-  (ac-config-default)
-  ;; start yasnippet with emacs
-  (require 'yasnippet)
-  (yas-global-mode 1)
+  ;; (require 'auto-complete)
+  ;; ;; do default config for auto-complete
+  ;; (require 'auto-complete-config)
+  ;; (ac-config-default)
+  ;; ;; start yasnippet with emacs
+  ;; (require 'yasnippet)
+  ;; (yas-global-mode 1)
 
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-  (add-to-list 'interpreter-mode-alist '("node" . js2-mode))
-  (add-hook 'js-mode-hook 'js2-minor-mode)
-  (add-hook 'js2-mode-hook 'ac-js2-mode)
-  (add-hook 'js-mode-hook (lambda () (tern-mode t)))
-  (if (eq system-type 'windows-nt)
-      (setq tern-command '("node" "<TERN LOCATION>\\bin\\tern")))
-  (eval-after-load 'tern
-    '(progn
-       (require 'tern-auto-complete)
-       (tern-ac-setup)))
-  (add-hook 'js2-mode-hook 'tern-mode)
-  (add-hook 'js-mode-hook 'tern-mode)
+  ;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+  ;; (add-to-list 'interpreter-mode-alist '("node" . js2-mode))
+  ;; (add-hook 'js-mode-hook 'js2-minor-mode)
+  ;; (add-hook 'js2-mode-hook 'ac-js2-mode)
+  ;; (add-hook 'js-mode-hook (lambda () (tern-mode t)))
+  ;; (if (eq system-type 'windows-nt)
+  ;;     (setq tern-command '("node" "<TERN LOCATION>\\bin\\tern")))
+  ;; (eval-after-load 'tern
+  ;;   '(progn
+  ;;      (require 'tern-auto-complete)
+  ;;      (tern-ac-setup)))
+  ;; (add-hook 'js2-mode-hook 'tern-mode)
+  ;; (add-hook 'js-mode-hook 'tern-mode)
 
   ;; (global-set-key (kbd "C-SPC") nil)
   ;; (global-hl-line-mode -1)
