@@ -10,8 +10,8 @@
   )
 (defun colorwin/youdao ()
   (interactive)
-  (youdao-dictionary-search-at-point+)
   (youdao-dictionary-play-voice-at-point)
+  (youdao-dictionary-search-at-point+)
   )
 
 
