@@ -41,4 +41,6 @@
 (global-set-key (kbd "s-f") 'find-file-in-project)
 
 
-(global-set-key (kbd "s-/" ) 'comment-line)
+(global-set-key (kbd "s-/" ) 'spacemacs/comment-or-uncomment-lines)
+
+(define-key evil-visual-state-map (kbd "C-R") 'zilongshanren/evil-quick-replace)

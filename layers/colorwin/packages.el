@@ -31,7 +31,7 @@
 
 (defconst colorwin-packages
   '(
-    company)
+    )
   "The list of Lisp packages required by the colorwin layer.
 
 Each entry is either:
@@ -61,7 +61,3 @@ Each entry is either:
 
 
 ;;; packages.el ends here
-
-(defun colowin/post-init-company
-    (setq company-minimum-prefix-length 2)
-    )

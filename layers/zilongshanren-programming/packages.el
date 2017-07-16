@@ -533,6 +533,11 @@
           company-idle-delay 0.08)
 
     (when (configuration-layer/package-usedp 'company)
+
+      (spacemacs|defvar-company-backends shell-script-mode)
+      (spacemacs|defvar-company-backends conf-unix-mode)
+      (spacemacs|defvar-company-backends json-mode)
+      (spacemacs|defvar-company-backends sh-mode)
       ;; (spacemacs|add-company-backends :modes shell-script-mode makefile-bsdmake-mode sh-mode lua-mode nxml-mode conf-unix-mode json-mode graphviz-dot-mode)
       )
     ))

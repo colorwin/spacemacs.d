@@ -42,7 +42,7 @@
                       ((and (symbolp v) (boundp v))
                        (throw 'break (symbol-value v))))))))
              (throw 'break (default-value 'evil-shift-width)))))
-      (concat "TS:" (int-to-string (or mode-indent-level 0)))))
+      (concat "^" (int-to-string (or mode-indent-level 0)))))
 
   (setq my-flycheck-mode-line
         '(:eval
@@ -77,6 +77,7 @@
                  '(:eval (zilongshanren/update-persp-name))
 
                  "%1 "
+
                  ;; the buffer name; the file name as a tool tip
                  '(:eval (propertize "%b " 'face 'font-lock-keyword-face
                                      'help-echo (buffer-file-name)))
@@ -106,16 +107,31 @@
                  ;; anzu
                  anzu--mode-line-format
 
-                 ;; relative position, size of file
-                 "["
+
+                 '(:eval (zilongshanren/display-mode-indent-width))
+
+                 ;; '(:eval (zilongshanren/display-mode-indent-width))
+                 ;; line and column
+                 " (" ;; '%02' to set to 2 chars at least; prevents flickering
+                 (propertize "%02l" 'face 'font-lock-type-face) ","
+                 (propertize "%02c" 'face 'font-lock-type-face) "-"
                  (propertize "%p" 'face 'font-lock-constant-face) ;; % above top
-                 "/"
-                 (propertize "%I" 'face 'font-lock-constant-face) ;; size
-                 "] "
+                 ") "
+
+
+
+                 ;; relative position, size of file
+                 ;; "["
+                 ;; (propertize "%p" 'face 'font-lock-constant-face) ;; % above top
+                 ;; "/"
+                 ;; (propertize "%I" 'face 'font-lock-constant-face) ;; size
+                 ;; "] "
+                 " "
 
                  ;; the current major mode for the buffer.
                  '(:eval (propertize "%m" 'face 'font-lock-string-face
                                      'help-echo buffer-file-coding-system))
+
 
                  "%1 "
                  my-flycheck-mode-line
@@ -124,6 +140,7 @@
                  '(:eval evil-mode-line-tag)
 
                  ;; minor modes
+                 ;; '(:eval (when (> (window-width) 120)
                  '(:eval (when (> (window-width) 90)
                            minor-mode-alist))
                  " "
@@ -139,12 +156,12 @@
 
                  (mode-line-fill 'mode-line 20)
 
-                 '(:eval (zilongshanren/display-mode-indent-width))
+                 ;; '(:eval (zilongshanren/display-mode-indent-width))
                  ;; line and column
-                 " (" ;; '%02' to set to 2 chars at least; prevents flickering
-                 (propertize "%02l" 'face 'font-lock-type-face) ","
-                 (propertize "%02c" 'face 'font-lock-type-face)
-                 ") "
+                 ;; " (" ;; '%02' to set to 2 chars at least; prevents flickering
+                 ;; (propertize "%02l" 'face 'font-lock-type-face) ","
+                 ;; (propertize "%02c" 'face 'font-lock-type-face)
+                 ;; ") "
 
                  '(:eval (when (> (window-width) 80)
                            (buffer-encoding-abbrev)))

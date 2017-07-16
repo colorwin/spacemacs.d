@@ -34,9 +34,9 @@ values."
      ivy
      themes-megapack
      (     better-defaults :variables better-defaults-move-to-end-of-code-first t)
-     ranger
+     ranger                             ; preview file path
      colors
-     prodigy
+     prodigy                            ; web server
      search-engine
      graphviz
      (syntax-checking :variables syntax-checking-enable-by-default nil
@@ -63,7 +63,7 @@ values."
      (shell :variables shell-default-shell 'eshell)
      ;; docker
      ;; latex
-     deft
+     deft                               ; search org file
      markdown
      (org :variables org-want-todo-bindings t)
      ;; gpu
@@ -349,7 +349,7 @@ values."
           ("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")))
 
   ;; https://github.com/syl20bnr/spacemacs/issues/2705
-  ;; (setq tramp-mode nil)
+  ;; (setq tramp-mode nil) because it would cause slow
   (setq tramp-ssh-controlmaster-options
         "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
 
@@ -363,8 +363,6 @@ values."
   )
 
 (defun dotspacemacs/user-config ()
-
-  (spacemacs/toggle-highlight-current-line-globally-off)
 
   ;;解决org表格里面中英文对齐的问题
   (when (configuration-layer/layer-usedp 'chinese)
@@ -381,12 +379,13 @@ values."
                         charset
                         (font-spec :family "Microsoft Yahei" :size 14))))
 
-  (fset 'evil-visual-update-x-selection 'ignore)
 
   ;; force horizontal split window
   (setq split-width-threshold 120)
   (linum-relative-on)
 
+  (spacemacs|defvar-company-backends text-mode)
+  ;; add function is from develop branch
   ;; (spacemacs|add-company-backends :modes text-mode)
 
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
@@ -455,20 +454,10 @@ values."
                             (projectile-switch-project-by-name project)
                             (setq default-directory old-default-directory))))))
 
-  (add-to-list 'auto-mode-alist '("\\.wxml$" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.wxss$" . css-mode))
-  ;; (add-to-list 'auto-mode-alist '("\\.vue$" . react-mode))
-  ;; use web-mode for .jsx files
-  (add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
 
-  ;; hooks
-  (defun my-js-mode-hook ()
-    (setq js2-basic-offset 2)
-    (setq js-indent-level 2)
-    (setq js2-include-node-externs t)
-    (setq js2-strict-missing-semi-warning nil))
-  (add-hook 'js2-mode-hook 'my-js-mode-hook)
 
+  ;; 选中不复制到系统剪切板
+  (fset 'evil-visual-update-x-selection 'ignore)
   ;; copy to system clipboard
   (case system-type
     ('darwin (unless window-system
@@ -492,30 +481,49 @@ values."
                   (setq interprogram-cut-function 'xsel-cut-function)
                   (setq interprogram-paste-function 'xsel-paste-function))))
 
+(add-to-list 'auto-mode-alist '("\\.wxml$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.wxss$" . css-mode))
+;; (add-to-list 'auto-mode-alist '("\\.vue$" . react-mode))
+;; use web-mode for .jsx files
+(add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
+
+
+;; hooks
+(defun my-js-mode-hook ()
+  (setq js2-basic-offset 2)
+  (setq js-indent-level 2)
+  (setq js2-include-node-externs t)
+  (setq js2-strict-missing-semi-warning nil))
+(add-hook 'js2-mode-hook 'my-js-mode-hook)
+
+
+;; transparent
+(defun on-after-init ()
+  (unless (display-graphic-p (selected-frame))
+    (set-face-background 'default "unspecified-bg" (selected-frame))))
+
+(add-hook 'window-setup-hook 'on-after-init)
+;; (set-frame-parameter (selected-frame) 'alpha '(85 85))
+;; (add-to-list 'default-frame-alist '(alpha 85 85))
+(custom-set-faces (if (not window-system) '(default ((t (:background "nil"))))))
+
+;; hack .重复输入, 包含company
+(if (fboundp 'evil-declare-change-repeat)
+    (mapc #'evil-declare-change-repeat
+          '(company-complete-common
+            company-select-next
+            company-select-previous
+            company-complete-selection
+            company-complete-number
+            )))
+
+(setq company-minimum-prefix-length 2)
+
   ;; (toggle-menu-bar-mode-from-frame -1)
   ;; (linum-relative-mode -1)
   ;; (linum-mode -1)
   ;; (global-linum-mode -1)
 
-  ;; transparent
-  (defun on-after-init ()
-    (unless (display-graphic-p (selected-frame))
-      (set-face-background 'default "unspecified-bg" (selected-frame))))
-
-  (add-hook 'window-setup-hook 'on-after-init)
-  ;; (set-frame-parameter (selected-frame) 'alpha '(85 85))
-  ;; (add-to-list 'default-frame-alist '(alpha 85 85))
-  (custom-set-faces (if (not window-system) '(default ((t (:background "nil"))))))
-
-  ;; hack .重复输入, 包含company
-  (if (fboundp 'evil-declare-change-repeat)
-      (mapc #'evil-declare-change-repeat
-            '(company-complete-common
-              company-select-next
-              company-select-previous
-              company-complete-selection
-              company-complete-number
-              )))
 
   ;; ;; (package-require 'tern)
   ;; (require 'tern)
@@ -604,6 +612,8 @@ values."
   ;; (global-set-key (kbd "C-SPC") nil)
   ;; (global-hl-line-mode -1)
   ;; (set-face-background 'hl-line "#999999")
+
+  (golden-ratio-mode 1)
   )
 
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
