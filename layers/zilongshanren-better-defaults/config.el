@@ -23,7 +23,9 @@
 (when (spacemacs/window-system-is-mac)
   (setq ns-pop-up-frames nil))
 
+;; 字符显示美化: 例如lamda
 (global-prettify-symbols-mode 1)
+
 (setq-default fill-column 80)
 
 (setq recenter-positions '(top middle bottom))
@@ -167,6 +169,7 @@ Single Capitals as you type."
 
 (setq tags-add-tables nil)
 
+;; 左括号补全右括号
 (electric-pair-mode t)
 ;; https://www.reddit.com/r/emacs/comments/4xhxfw/how_to_tune_the_behavior_of_eletricpairmode/
 (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
