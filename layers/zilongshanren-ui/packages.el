@@ -42,7 +42,7 @@
                       ((and (symbolp v) (boundp v))
                        (throw 'break (symbol-value v))))))))
              (throw 'break (default-value 'evil-shift-width)))))
-      (concat "^" (int-to-string (or mode-indent-level 0)))))
+      (concat (int-to-string (or mode-indent-level 0) ) "em")))
 
   (setq my-flycheck-mode-line
         '(:eval
@@ -108,7 +108,6 @@
                  anzu--mode-line-format
 
 
-                 '(:eval (zilongshanren/display-mode-indent-width))
 
                  ;; '(:eval (zilongshanren/display-mode-indent-width))
                  ;; line and column
@@ -116,6 +115,10 @@
                  (propertize "%02l" 'face 'font-lock-type-face) ","
                  (propertize "%02c" 'face 'font-lock-type-face) "-"
                  (propertize "%p" 'face 'font-lock-constant-face) ;; % above top
+                 "/"
+                 (propertize "%I" 'face 'font-lock-constant-face) ;; size
+                 "-"
+                 '(:eval (zilongshanren/display-mode-indent-width))
                  ") "
 
 
