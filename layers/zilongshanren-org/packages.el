@@ -336,6 +336,9 @@ unwanted space when exporting org-mode to html."
       (define-key org-mode-map (kbd "s-p") 'org-priority)
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
         "tl" 'org-toggle-link-display)
+      (spacemacs/set-leader-keys-for-major-mode 'org-mode
+        "tP" 'org-toggle-inline-images)
+
       (define-key evil-normal-state-map (kbd "C-c C-w") 'org-refile)
 
       ;; hack for org headline toc
