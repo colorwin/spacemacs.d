@@ -31,6 +31,7 @@
 
 (defconst colorwin-packages
   '(
+    vue-mode
     )
   "The list of Lisp packages required by the colorwin layer.
 
@@ -61,3 +62,8 @@ Each entry is either:
 
 
 ;;; packages.el ends here
+(defun colorwin/init-vue-mode ()
+  (use-package vue-mode
+    :config
+    ;; 0, 1, or 2, representing (respectively) none, low, and high coloring
+    (setq mmm-submode-decoration-level 2)))
