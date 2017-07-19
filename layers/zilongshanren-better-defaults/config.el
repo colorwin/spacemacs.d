@@ -24,7 +24,7 @@
   (setq ns-pop-up-frames nil))
 
 ;; 字符显示美化: 例如lamda
-(global-prettify-symbols-mode 1)
+(global-prettify-symbols-mode -1)
 
 (setq-default fill-column 80)
 

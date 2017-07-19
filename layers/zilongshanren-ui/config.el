@@ -25,7 +25,7 @@
         ;; '("" " Guanghui - "
         (:eval (if (buffer-file-name)
                    (abbreviate-file-name (buffer-file-name)) "%b"))
-        " - Colorwin"
+        " - Emacs"
         ))
 
 (define-fringe-bitmap 'right-curly-arrow
