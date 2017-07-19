@@ -614,6 +614,7 @@ values."
   ;; (set-face-background 'hl-line "#999999")
 
   (golden-ratio-mode 1)
+  (global-hl-line-mode -1)
   )
 
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
