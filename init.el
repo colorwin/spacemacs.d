@@ -41,7 +41,10 @@ values."
      graphviz
      (syntax-checking :variables syntax-checking-enable-by-default nil
                       syntax-checking-enable-tooltips nil)
-     (spell-checking :variables spell-checking-enable-by-default nil)
+     (spell-checking :variables
+                     ispell-program-name "aspell"
+                     ispell-dictionary "english"
+                     spell-checking-enable-by-default nil)
      (vinegar :variables vinegar-reuse-dired-buffer t)
      (spacemacs-layouts :variables layouts-enable-autosave nil
                         layouts-autosave-delay 300)
