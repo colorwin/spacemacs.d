@@ -113,11 +113,11 @@
                  ;; line and column
                  " (" ;; '%02' to set to 2 chars at least; prevents flickering
                  (propertize "%02l" 'face 'font-lock-type-face) ","
-                 (propertize "%02c" 'face 'font-lock-type-face) "-"
+                 (propertize "%02c" 'face 'font-lock-type-face) "|"
                  (propertize "%p" 'face 'font-lock-constant-face) ;; % above top
-                 "/"
-                 (propertize "%I" 'face 'font-lock-constant-face) ;; size
                  "-"
+                 (propertize "%I" 'face 'font-lock-constant-face) ;; size
+                 "|"
                  '(:eval (zilongshanren/display-mode-indent-width))
                  ") "
 
