@@ -228,7 +228,11 @@ e.g. Sunday, September 17, 2000."
       (counsel-git)
     (if (projectile-project-p)
         (projectile-find-file)
-      (counsel-file-jump))))
+      (counsel-file-jump))
+    )
+  ;; fix SPC TAB cant change back buffer which open by this function
+  (persp-add-buffer)
+  )
 
 
 ;; http://blog.lojic.com/2009/08/06/send-growl-notifications-from-carbon-emacs-on-osx/
