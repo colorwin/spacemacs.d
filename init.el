@@ -484,43 +484,43 @@ values."
                   (setq interprogram-cut-function 'xsel-cut-function)
                   (setq interprogram-paste-function 'xsel-paste-function))))
 
-(add-to-list 'auto-mode-alist '("\\.wxml$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.wxss$" . css-mode))
-;; (add-to-list 'auto-mode-alist '("\\.vue$" . react-mode))
-;; use web-mode for .jsx files
-(add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.wxml$" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.wxss$" . css-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.vue$" . react-mode))
+  ;; use web-mode for .jsx files
+  (add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
 
 
-;; hooks
-(defun my-js-mode-hook ()
-  (setq js2-basic-offset 2)
-  (setq js-indent-level 2)
-  (setq js2-include-node-externs t)
-  (setq js2-strict-missing-semi-warning nil))
-(add-hook 'js2-mode-hook 'my-js-mode-hook)
+  ;; hooks
+  (defun my-js-mode-hook ()
+    (setq js2-basic-offset 2)
+    (setq js-indent-level 2)
+    (setq js2-include-node-externs t)
+    (setq js2-strict-missing-semi-warning nil))
+  (add-hook 'js2-mode-hook 'my-js-mode-hook)
 
 
-;; transparent
-(defun on-after-init ()
-  (unless (display-graphic-p (selected-frame))
-    (set-face-background 'default "unspecified-bg" (selected-frame))))
+  ;; transparent
+  (defun on-after-init ()
+    (unless (display-graphic-p (selected-frame))
+      (set-face-background 'default "unspecified-bg" (selected-frame))))
 
-(add-hook 'window-setup-hook 'on-after-init)
-;; (set-frame-parameter (selected-frame) 'alpha '(85 85))
-;; (add-to-list 'default-frame-alist '(alpha 85 85))
-(custom-set-faces (if (not window-system) '(default ((t (:background "nil"))))))
+  (add-hook 'window-setup-hook 'on-after-init)
+  ;; (set-frame-parameter (selected-frame) 'alpha '(85 85))
+  ;; (add-to-list 'default-frame-alist '(alpha 85 85))
+  (custom-set-faces (if (not window-system) '(default ((t (:background "nil"))))))
 
-;; hack .重复输入, 包含company
-(if (fboundp 'evil-declare-change-repeat)
-    (mapc #'evil-declare-change-repeat
-          '(company-complete-common
-            company-select-next
-            company-select-previous
-            company-complete-selection
-            company-complete-number
-            )))
+  ;; hack .重复输入, 包含company
+  (if (fboundp 'evil-declare-change-repeat)
+      (mapc #'evil-declare-change-repeat
+            '(company-complete-common
+              company-select-next
+              company-select-previous
+              company-complete-selection
+              company-complete-number
+              )))
 
-(setq company-minimum-prefix-length 2)
+  (setq company-minimum-prefix-length 2)
 
   ;; (toggle-menu-bar-mode-from-frame -1)
   ;; (linum-relative-mode -1)
@@ -540,23 +540,23 @@ values."
   ;; ;; http://www.flycheck.org/manual/latest/index.html
   ;; (require 'flycheck)
 
-  ;; ;; turn on flychecking globally
-  ;; (add-hook 'after-init-hook #'global-flycheck-mode)
+  ;; turn on flychecking globally
+  (add-hook 'after-init-hook #'global-flycheck-mode)
 
-  ;; ;; disable jshint since we prefer eslint checking
-  ;; (setq-default flycheck-disabled-checkers
-  ;;               (append flycheck-disabled-checkers
-  ;;                       '(javascript-jshint)))
+  ;; disable jshint since we prefer eslint checking
+  (setq-default flycheck-disabled-checkers
+                (append flycheck-disabled-checkers
+                        '(javascript-jshint)))
 
-  ;; (setq flycheck-checkers '(javascript-eslint))
-  ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
-  ;; (flycheck-add-mode 'javascript-eslint 'js2-mode)
-  ;; ;; use eslint with web-mode for jsx files
-  ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
+  (setq flycheck-checkers '(javascript-eslint))
+  (flycheck-add-mode 'javascript-eslint 'web-mode)
+  (flycheck-add-mode 'javascript-eslint 'js2-mode)
+  ;; use eslint with web-mode for jsx files
+  (flycheck-add-mode 'javascript-eslint 'web-mode)
 
-  ;; ;; customize flycheck temp file prefix
-  ;; (setq-default flycheck-temp-prefix ".")
-  ;; (setq flycheck-eslintrc "~/.eslintrc")
+  ;; customize flycheck temp file prefix
+  (setq-default flycheck-temp-prefix ".")
+  (setq flycheck-eslintrc "~/.eslintrc")
 
   ;; ;; disable json-jsonlist checking for json files
   ;; (setq-default flycheck-disabled-checkers
@@ -567,7 +567,8 @@ values."
   ;; ;; only need exec-path-from-shell on OSX
   ;; ;; this hopefully sets up path and other vars better
   ;; (when (memq window-system '(mac ns x))
-  ;;   (exec-path-from-shell-initialize))
+  (exec-path-from-shell-initialize)
+  ;; )
 
   ;; ;; for better jsx syntax-highlighting in web-mode
   ;; ;; - courtesy of Patrick @halbtuerke
