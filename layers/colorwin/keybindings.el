@@ -24,7 +24,7 @@
 ;; search engine
 (spacemacs/declare-prefix "E" "engine")
 (spacemacs/set-leader-keys "Eg" 'engine/search-google)
-(spacemacs/set-leader-keys "EG" 'engine/search-github)
+;; (spacemacs/set-leader-keys "EG" 'engine/search-github)
 (spacemacs/set-leader-keys "Ew" 'engine/search-wikipedia)
 (spacemacs/set-leader-keys "Es" 'engine/search-stack-overflow)
 (spacemacs/set-leader-keys "Ey" 'youdao-dictionary-search)
@@ -41,6 +41,27 @@
 (global-set-key (kbd "s-f") 'find-file-in-project)
 
 
-(global-set-key (kbd "s-/" ) 'spacemacs/comment-or-uncomment-lines)
-
 (define-key evil-visual-state-map (kbd "C-R") 'zilongshanren/evil-quick-replace)
+
+ ;; atom like key
+;; (global-set-key (kbd "C-s" ) 'save-buffer)
+(define-key key-translation-map (kbd "C-/") (kbd "M-m c l"))
+(define-key key-translation-map (kbd "C-z") (kbd "C-/"))
+;; (define-key key-translation-map (kbd "C-p") (kbd "SPC p f"))
+;; (define-key key-translation-map (kbd "C-S-p") (kbd "SPC SPC"))
+;; (define-key key-translation-map (kbd "C-,") (kbd "SPC SPC"))
+;; (define-key key-translation-map (kbd "C-.") (kbd "SPC h d k"))
+
+
+
+(global-set-key (kbd "s-W" ) 'web-mode)
+(global-set-key (kbd "s-J" ) 'js2-mode)
+(global-set-key (kbd "s-C" ) 'css-mode)
+(global-set-key (kbd "s-E" ) 'emacs-lisp-mode)
+(global-set-key (kbd "s-R" ) 'react-mode)
+
+;; evil key translation
+;; (evil-define-key 'normal key-translation-map (kbd ";") (kbd "l"))
+
+
+(spacemacs/set-leader-keys "gc" 'magit-file-checkout)
