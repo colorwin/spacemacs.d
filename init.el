@@ -180,15 +180,18 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
+                         sanityinc-solarized-dark
                          monokai
                          solarized
                          solarized-light
-                         solarized-dark)
+                         )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
+   dotspacemacs-default-font '(
+                               "Hack"
+                               ;; "Source Code Pro"
                                :size 14
                                :weight normal
                                :width normal
@@ -367,20 +370,27 @@ values."
 
 (defun dotspacemacs/user-config ()
 
+  (defun evil-paste-after-from-0 ()
+    (interactive)
+    (let ((evil-this-register ?0))
+      (call-interactively 'evil-paste-after)))
+
+  (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
+
   ;;解决org表格里面中英文对齐的问题
-  (when (configuration-layer/layer-usedp 'chinese)
-    (when (and (spacemacs/system-is-mac) window-system)
-      (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
+  ;; (when (configuration-layer/layer-usedp 'chinese)
+  ;;   (when (and (spacemacs/system-is-mac) window-system)
+  ;;     (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
 
   ;; Setting Chinese Font
-  (when (and (spacemacs/system-is-mswindows) window-system)
-    (setq ispell-program-name "aspell")
-    (setq w32-pass-alt-to-system nil)
-    (setq w32-apps-modifier 'super)
-    (dolist (charset '(kana han symbol cjk-misc bopomofo))
-      (set-fontset-font (frame-parameter nil 'font)
-                        charset
-                        (font-spec :family "Microsoft Yahei" :size 14))))
+  ;; (when (and (spacemacs/system-is-mswindows) window-system)
+  ;;   (setq ispell-program-name "aspell")
+  ;;   (setq w32-pass-alt-to-system nil)
+  ;;   (setq w32-apps-modifier 'super)
+  ;;   (dolist (charset '(kana han symbol cjk-misc bopomofo))
+  ;;     (set-fontset-font (frame-parameter nil 'font)
+  ;;                       charset
+  ;;                       (font-spec :family "Microsoft Yahei" :size 14))))
 
 
   ;; force horizontal split window
@@ -488,7 +498,7 @@ values."
   (add-to-list 'auto-mode-alist '("\\.wxss$" . css-mode))
   ;; (add-to-list 'auto-mode-alist '("\\.vue$" . react-mode))
   ;; use web-mode for .jsx files
-  (add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.vue$" . react-mode))
 
 
   ;; hooks
@@ -541,22 +551,22 @@ values."
   ;; (require 'flycheck)
 
   ;; turn on flychecking globally
-  (add-hook 'after-init-hook #'global-flycheck-mode)
+  ;; (add-hook 'after-init-hook #'global-flycheck-mode)
 
-  ;; disable jshint since we prefer eslint checking
-  (setq-default flycheck-disabled-checkers
-                (append flycheck-disabled-checkers
-                        '(javascript-jshint)))
+  ;; ;; disable jshint since we prefer eslint checking
+  ;; (setq-default flycheck-disabled-checkers
+  ;;               (append flycheck-disabled-checkers
+  ;;                       '(javascript-jshint)))
 
-  (setq flycheck-checkers '(javascript-eslint))
-  (flycheck-add-mode 'javascript-eslint 'web-mode)
-  (flycheck-add-mode 'javascript-eslint 'js2-mode)
-  ;; use eslint with web-mode for jsx files
-  (flycheck-add-mode 'javascript-eslint 'web-mode)
+  ;; (setq flycheck-checkers '(javascript-eslint))
+  ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
+  ;; (flycheck-add-mode 'javascript-eslint 'js2-mode)
+  ;; ;; use eslint with web-mode for jsx files
+  ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
 
-  ;; customize flycheck temp file prefix
-  (setq-default flycheck-temp-prefix ".")
-  (setq flycheck-eslintrc "~/.eslintrc")
+  ;; ;; customize flycheck temp file prefix
+  ;; (setq-default flycheck-temp-prefix ".")
+  ;; (setq flycheck-eslintrc "~/.eslintrc")
 
   ;; ;; disable json-jsonlist checking for json files
   ;; (setq-default flycheck-disabled-checkers
