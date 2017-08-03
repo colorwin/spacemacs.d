@@ -231,7 +231,7 @@ e.g. Sunday, September 17, 2000."
       (counsel-file-jump))
     )
   ;; fix SPC TAB cant change back buffer which open by this function
-  (persp-add-buffer)
+  ;; (persp-add-buffer)
   )
 
 
